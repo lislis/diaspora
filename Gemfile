@@ -91,7 +91,7 @@ gem 'rails-assets-jquery',                              '1.11.1' # Should be kep
 gem 'js_image_paths',                                   '0.0.2'
 gem 'js-routes',                                        '1.0.0'
 gem 'rails-assets-punycode',                            '1.3.2'
-gem 'rails-assets-markdown-it',                         '3.0.7'
+gem 'rails-assets-markdown-it',                         '3.1.0'
 gem 'rails-assets-markdown-it-hashtag',                 '0.2.3'
 gem 'rails-assets-markdown-it-diaspora-mention',        '0.2.1'
 gem 'rails-assets-markdown-it-sanitizer',               '0.2.2'
@@ -125,7 +125,7 @@ gem 'redcarpet',         '3.2.2'
 gem 'twitter-text',      '1.11.0'
 gem 'roxml',             '3.1.6'
 gem 'ruby-oembed',       '0.8.12'
-gem 'open_graph_reader', '0.4.0'
+gem 'open_graph_reader', '0.5.0'
 
 
 # Services
@@ -143,7 +143,7 @@ gem 'active_model_serializers', '0.9.3'
 
 # XMPP chat dependencies
 gem 'diaspora-vines',             '~> 0.1.27'
-gem 'rails-assets-diaspora_jsxc', '~> 0.0.12'
+gem 'rails-assets-diaspora_jsxc', '~> 0.1.1'
 
 # Tags
 

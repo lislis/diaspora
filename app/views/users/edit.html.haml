@@ -43,8 +43,9 @@
         .span12
           %h3 
             = t('.change_password')
-          = form_for 'user', :url => user_path, :html => { :method => :put } do |f|
-            = f.error_messages
+          = form_for @user, :url => user_path, :html => { :method => :put } do |f|
+            - if (@user.errors.keys & [:password, :password_confirmation, :current_password]).present?
+              = f.error_messages
             %p
               = f.label :current_password, t('.current_password')
               = f.password_field :current_password, :placeholder => t('.current_password_expl')
@@ -58,7 +59,7 @@
             .submit_block
               = link_to t('cancel'), edit_user_path
               = t('or')
-              = f.submit t('.change_password'), :class => "btn"
+              = f.submit t('.change_password'), class: "btn", name: 'change_password'
 
       %hr
 
@@ -67,8 +68,6 @@
           %h3 
             = t('.change_language')
           = form_for 'user', :url => user_path, :html => { :method => :put } do |f|
-            = f.error_messages
-
             .form-inline
               = f.select :language, available_language_options
               = f.submit t('.change_language'), :class => "btn"
@@ -81,7 +80,6 @@
           %h3#stream-preferences
             = t('.stream_preferences')
           = form_for current_user, :url => user_path, :html => { :method => :put } do |f|
-            = f.error_messages
 
             = f.fields_for :stream_preferences do |type|
               #stream_prefs
@@ -106,8 +104,6 @@
           %h3#auto-follow-back-preferences
             = t('.following')
           = form_for current_user, :url => user_path, :html => { :method => :put } do |f|
-            = f.error_messages
-          
             = f.label :auto_follow_back, :class => "checkbox" do
               = f.check_box :auto_follow_back
               = t('.auto_follow_back')
@@ -126,8 +122,6 @@
           %h3 
             = t('.receive_email_notifications')
           = form_for 'user', :url => user_path, :html => { :method => :put } do |f|
-            = f.error_messages
-
             = f.fields_for :email_preferences do |type|
               #email_prefs
                 - if current_user.admin?
@@ -173,7 +167,7 @@
 
             .small-horizontal-spacer
             
-            = f.submit t('.change'), :class => "btn"
+            = f.submit t('.change'), :class => "btn", :id => "change_email_preferences"
 
       %hr
 
@@ -182,23 +176,32 @@
           %h3 
             = t('.export_data')
           - if current_user.exporting
-            .small-horizontal-spacer
-              .export-in-progress= t('.export_in_progress')
+            .export-in-progress= t('.export_in_progress')
           - elsif current_user.export.present?
-            .small-horizontal-spacer
-              = link_to t('.download_export'), download_profile_user_path, class: "button"
-            .small-horizontal-spacer
+            = link_to t('.download_export'), download_profile_user_path, class: "btn btn-success"
+            %h6
               = t('.last_exported_at', timestamp: current_user.exported_at)
+            = link_to t('.request_export_update'), export_profile_user_path, class: "btn"
+          - else
+            = link_to t('.request_export'), export_profile_user_path, :class => "btn"
+              
+          - if current_user.exporting_photos
             .small-horizontal-spacer
-              = link_to t('.request_export_update'), export_profile_user_path
+            .export-in-progress= t('.export_photos_in_progress')
+          - elsif current_user.exported_photos_file.present?
+            .small-horizontal-spacer
+            = link_to t('.download_export_photos'), download_photos_user_path, class: "btn  btn-success"
+            %h6
+              = t('.last_exported_at', timestamp: current_user.exported_photos_at)
+            = link_to t('.request_export_photos_update'), export_photos_user_path, class: "btn"
           - else
             .small-horizontal-spacer
-              = link_to t('.request_export'), export_profile_user_path, :class => "button"
+            = link_to t('.request_export_photos'), export_photos_user_path, :class => "btn"
 
         .span6
           %h3
             = t('.close_account_text')
-          =link_to t('.close_account_text'), '#close_account_pane', :rel => 'facebox', :class => "button", :id => "close_account"
+          =link_to t('.close_account_text'), '#close_account_pane', :rel => 'facebox', :class => "btn btn-danger", :id => "close_account"
 
           .hidden#close_account_pane{:rel => 'facebox'}
             #inner_account_delete

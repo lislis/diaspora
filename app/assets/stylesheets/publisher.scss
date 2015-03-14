@@ -7,6 +7,7 @@
     #location_container,
     #hide_publisher,
     #photodropzone_container,
+    .counter,
     .options_and_submit {
       display: none !important;
     }
@@ -78,7 +79,7 @@
       }
 
       .mentions-input-box .mentions {
-        line-height: 20px !important;
+        line-height: $line-height !important;
       }
 
       &.with_attachments .row-fluid#photodropzone_container {
