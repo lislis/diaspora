@@ -32,6 +32,7 @@ app.views.Hovercard = app.views.Base.extend({
     this.hashtags = this.$(".hashtags");
     this.personLink = this.$("a.person");
     this.personID = this.$("div.handle");
+    this.followingYou = this.$(".following-you");
   },
 
   deactivate: function() {
@@ -124,6 +125,11 @@ app.views.Hovercard = app.views.Base.extend({
     this.personLink.text(person.name);
     this.personID.text(person.diaspora_id);
 
+    // check if thais person is following you
+    if (true) {
+      this.followingYou.html("&#10003;");
+    }
+    
     if (person.profile) {
       this.avatar.attr("src", person.profile.avatar);
 
